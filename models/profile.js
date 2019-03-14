@@ -42,10 +42,16 @@ const profileSchema = new mongoose.Schema({
     }],
     location:{
         state:String,
-        area:String
+        homeArea:{
+            type: objectId,
+            ref:'Area'
+        },
+        unlockedAreas:{
+            type:[objectId],
+            ref:'Area'
+        }
+            
     }
-
-
 
 })
 
