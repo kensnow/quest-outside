@@ -3,7 +3,7 @@ import React from 'react'
 function Mainview() {
     return (
         <div>
-            Mainy
+            Main View/Router space.   SPAAAAA
         </div>
     )
 }

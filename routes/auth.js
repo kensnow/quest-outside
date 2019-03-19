@@ -22,7 +22,7 @@ authRouter.post('/signup', (req, res, next) => {
     })
 })
 
-authRouter.post('/signin', (req, res, next) => {
+authRouter.post('/login', (req, res, next) => {
     Profile.findOne({ email: req.body.email.toLowerCase() }, (err, user) => {
         if (err) { return res.status(500).send(err) }
         if (!user) {
