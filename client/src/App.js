@@ -1,9 +1,15 @@
 import React from 'react'
+import Header from './Header'
+import Footer from './Footer'
+import Mainview from './Mainview'
+
 
 function App() {
     return (
         <div>
-            Appy Apster
+            <Header/>
+            <Mainview/>
+            <Footer/>
         </div>
     )
 }
