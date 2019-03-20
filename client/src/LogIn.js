@@ -10,7 +10,7 @@ function LogIn(props) {
     }
 
     return (
-        <FormHandler inputs={inputs} submit={props.logIn(inputs)}>
+        <FormHandler inputs={inputs} submit={(inputs) => props.logIn(inputs)}>
             {
                 ({handleChange, handleSubmit}) => {
                     return(

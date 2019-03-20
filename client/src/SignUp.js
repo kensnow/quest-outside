@@ -1,6 +1,6 @@
 import React from 'react'
 import FormHandler from './providers/FormHandler'
-import {withProfileProvider} from './providers/ProfileProvider'
+import { withProfileProvider } from './providers/ProfileProvider'
 
 function SignUp(props) {
 
@@ -11,27 +11,21 @@ function SignUp(props) {
     }
 
     return (
-        <FormHandler inputs={inputs} submit={props.signUp(inputs)}>
-
+        <FormHandler inputs={inputs} submit={(inputs) => props.signUp(inputs)}>
             {
-                ({handleChange, handleSubmit}) => {
+                ({ handleChange, handleSubmit }) => {
                     return (
                         <form onSubmit={handleSubmit}>
-                            <input onChange={handleChange} type="email" name="email" placeholder="Enter email"/>
+                            <input onChange={handleChange} type="email" name="email" placeholder="Enter email" />
                             <input onChange={handleChange} type="password" name="password" placeholder="Enter password" />
-                            <input onChange={handleChange}type="text" name="username" placeholder="Enter a username"/>
+                            <input onChange={handleChange} type="text" name="username" placeholder="Enter a username" />
                             <button>Submit</button>
                         </form>
-                    )   
-
+                    )
                 }
-
             }
-
         </FormHandler>
-
     )
-
 }
 
 export default withProfileProvider(SignUp)

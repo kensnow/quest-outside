@@ -14,16 +14,19 @@ userAxios.interceptors.request.use((config) => {
 export default class ProfileProvider extends Component {
     constructor(){
         super()
-        this.setState = {
+        this.state = {
             email:"",
             password:"",
             errMsg:"",
             token:localStorage.getItem("token") || "",
             user:JSON.parse(localStorage.getItem("user")) || {}
         }
+        this.logIn = this.logIn.bind(this)
+        this.signUp = this.signUp.bind(this)
+        this.logOut = this.logOut.bind(this)
     }
 
-    logIn = (userDat) => {
+    logIn(userDat){
         //get profile function tied to login/signup
         return userAxios.post('/auth/login',{
             ...userDat
@@ -40,7 +43,7 @@ export default class ProfileProvider extends Component {
             })
     }
 
-    signUp = (userDat) => {
+    signUp(userDat){
         return userAxios.post('/auth/signup',{
             ...userDat
         })
@@ -61,7 +64,7 @@ export default class ProfileProvider extends Component {
             })
     }
     
-    logOut = () => {
+    logOut(){
         localStorage.removeItem('user')
         localStorage.removeItem('token')
         this.setState({
@@ -69,9 +72,8 @@ export default class ProfileProvider extends Component {
             password:'',
             user:'',
             token:''
-        },() => {
-            this.props.history.push('/')
         })
+        
     }
 
 

@@ -1,12 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 function Header() {
     return (
         <div>
-            THis is the header
-            Home(link)
-            Login/Profile
-            About
+            <ul>
+                <Link to='/'>Home</Link>
+                <Link to='/login'>Log In</Link>
+                <Link to='/signup'>Sign Up</Link>
+            </ul>
         </div>
     )
 }
