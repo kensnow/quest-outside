@@ -32,7 +32,9 @@ export default class ProfileProvider extends Component {
             ...userDat
         })
             .then(res => {
-                const {user, token} = res.datalocalStorage.setItem('token', token)
+                console.log(res)
+                const {user, token} = res.data
+                localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(user))
                 this.setState({
                     token,

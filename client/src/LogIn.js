@@ -6,7 +6,7 @@ function LogIn(props) {
 
     const inputs = {
         email: props ? props.email : '',
-        description: props ? props.password : '',
+        password: props ? props.password : '',
     }
 
     return (

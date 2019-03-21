@@ -6,11 +6,9 @@ export default class FormHandler extends Component {
         this.state = {
             inputs: props.inputs
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleChange(e){
+    handleChange = (e) => {
         const {name, value} = e.target
         this.setState(ps => ({
             inputs: {
@@ -20,10 +18,9 @@ export default class FormHandler extends Component {
         }))
     }
 
-    handleSubmit(e){
-        e.preventDefault()
-        console.log(this.props)
-        // this.props.submit(this.state.inputs)
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.submit(this.state.inputs)
     }
 
     render() {

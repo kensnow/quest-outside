@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const objectId = mongoose.Schema.Types.ObjectId
 const bcrypt = require('bcrypt')
 
+const states = ['AK','AL','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+
 const profileSchema = new mongoose.Schema({
     email:{
         type:String,
@@ -41,11 +43,10 @@ const profileSchema = new mongoose.Schema({
         }
     }],
     location:{
-        state:String,
-        homeArea:{
-            type: objectId,
-            ref:'Area'
-        },
+        state:{
+            type:String,
+            enum:states
+        }, 
         unlockedAreas:{
             type:[objectId],
             ref:'Area'
