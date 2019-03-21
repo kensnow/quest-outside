@@ -20,6 +20,10 @@ const profileSchema = new mongoose.Schema({
         type:Boolean,
         default: false
     },
+    isQuestMaker:{
+        type:Boolean,
+        default:false
+    },
     password: {
         type:String,
         required: true

@@ -1,4 +1,5 @@
 import React from 'react'
+import {Router} from 'react-router-dom'
 import FormHandler from './providers/FormHandler'
 import {withProfileProvider} from './providers/ProfileProvider'
 
@@ -10,7 +11,7 @@ function LogIn(props) {
     }
 
     return (
-        <FormHandler inputs={inputs} submit={(inputs) => props.logIn(inputs)}>
+        <FormHandler inputs={inputs} submit={(inputs) => props.logIn(inputs).then(props.history.push('/dashboard'))}>
             {
                 ({handleChange, handleSubmit}) => {
                     return(
