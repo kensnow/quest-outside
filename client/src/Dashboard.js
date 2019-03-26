@@ -1,5 +1,6 @@
 import React from 'react'
 import {withProfileProvider} from './providers/ProfileProvider'
+import {Link} from 'react-router-dom'
 
 
 function Dashboard(props) {
@@ -9,6 +10,7 @@ function Dashboard(props) {
         <div>
             <h1>Username:{username}</h1>
             <h3>Current Level:{currentLevel}</h3>
+            <Link to='dashboard/edit-profile'>Edit Profile</Link>
         </div>
     )
 }

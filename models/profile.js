@@ -16,6 +16,10 @@ const profileSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
+    profileImg:{
+        type:String,
+        default:'nouser.jpg'
+    },
     isAdmin:{
         type:Boolean,
         default: false

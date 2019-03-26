@@ -1,5 +1,8 @@
 const express = require('express')
 const profileRouter = express.Router()
+const path = require('path')
+const multer = require('multer')
+const upload = multer({dest: './profileImg/'})
 
 const Profile = require('../models/profile')
 
@@ -52,5 +55,25 @@ profileRouter.route('/:id')
                 next(err)
             })
     })
+
+    profileRouter.route('/:id/profileImg',upload.single('file'))
+        .post((req, res, next) => {
+            const {id} = req.params
+            const {file} = req.file
+            Profile.findByIdAndUpdate(id, {profileImg: file.filename})
+                .then(updatedProfile => res.status(200).send(updatedProfile))
+                .catch(err => {
+                    res.status(500)
+                    next(err)
+                })
+        })
+
+
+    profileRouter.route('/:id/profileImg/:imgName')
+        .get((req, res) => {
+            let filename = req.params.filename
+            res.sendFile(path.join(__dirname, 'profileImg', filename))
+        })
+
 
     module.exports = profileRouter

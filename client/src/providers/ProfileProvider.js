@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react'
 import axios from 'axios'
-
+import {withRouter} from 'react-router-dom'
 export const {Consumer, Provider} = createContext()
 const userAxios = axios.create()
 
@@ -11,9 +11,9 @@ userAxios.interceptors.request.use((config) => {
     return config
 })
 
-export default class ProfileProvider extends Component {
-    constructor(){
-        super()
+class ProfileProvider extends Component {
+    constructor(props){
+        super(props)
         this.state = {
             email:"",
             password:"",
@@ -21,12 +21,9 @@ export default class ProfileProvider extends Component {
             token:localStorage.getItem("token") || "",
             user:JSON.parse(localStorage.getItem("user")) || {}
         }
-        this.logIn = this.logIn.bind(this)
-        this.signUp = this.signUp.bind(this)
-        this.logOut = this.logOut.bind(this)
     }
 
-    logIn(userDat){
+    logIn = (userDat) => {
         //get profile function tied to login/signup
         return userAxios.post('/auth/login',{
             ...userDat
@@ -40,21 +37,27 @@ export default class ProfileProvider extends Component {
                     token,
                     password: "",
                     user
+                }, () => {
+                    this.props.history.push('/dashboard')
                 })
                 return res
             })
     }
 
-    signUp(userDat){
+    signUp = (userDat) => {
         return userAxios.post('/auth/signup',{
             ...userDat
         })
             .then(res => {
                 const {user, token} = res.data
+                localStorage.setItem('token', token)
+                localStorage.setItem('user', JSON.stringify(user))
                 this.setState({
                     token,
                     password:"",
                     user
+                }, () => {
+                    this.props.history.push('/dashboard')
                 })
                 return res
             })
@@ -66,7 +69,7 @@ export default class ProfileProvider extends Component {
             })
     }
     
-    logOut(){
+    logOut = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('token')
         this.setState({
@@ -74,16 +77,51 @@ export default class ProfileProvider extends Component {
             password:'',
             user:'',
             token:''
+        }, () => {
+            this.props.history.push('/')
         })
         
     }
 
+    uploadImage = (userId, imgDat) => {
+        return userAxios.post(`/${userId}/profileImg`, imgDat)
+            .then(res => this.updateProfileImg(res.data.filename))
+            .catch(err => {
+                this.setState({
+                    errMsg:err.response.data.message
+                })
+                return err
+            })
+    }
+
+    setImg = (e, userId) => {
+        if(e.target.files[0]){
+            let data = new FormData()
+            let files = e.target.files
+            let fileName = files[0].name
+            data.append('file', files[0])
+            data.append('name', fileName)
+            this.uploadImage(userId, data)
+        }
+    }
+
+    updateProfileImg = (filename) => {
+        this.setState(ps => ({
+            user: {
+                ...ps.user,
+                profileImg: filename
+            }
+        }),
+            () => localStorage.setItem('user',JSON.stringify(this.state.user))
+        )
+    }
 
     render() {
         const value = {
             logIn: this.logIn,
             logOut: this.logOut,
             signUp: this.signUp,
+            setImg: this.setImage,
             ...this.state
         }
         return (
@@ -94,6 +132,7 @@ export default class ProfileProvider extends Component {
     }
 }
 
+export default withRouter(ProfileProvider)
 
 export const withProfileProvider = C => props => (
     <Consumer>

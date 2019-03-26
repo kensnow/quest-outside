@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {withProfileProvider} from './providers/ProfileProvider'
 
 function Header(props) {
-    console.log (props)
+
     const {token} = props
     const {isAdmin, isQuestMaker} = props.user
     return (
@@ -14,7 +14,7 @@ function Header(props) {
                     <>
                         <Link to='/dashboard'>Dashboard</Link>
                         <Link to='/quest-maker'>Build A Quest</Link>
-                        <button>Log Out</button> 
+                        <button onClick={props.logOut}>Log Out</button> 
                     </>
                     : 
                     <>
