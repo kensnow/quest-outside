@@ -2,23 +2,28 @@ const mongoose = require('mongoose')
 const objectId = mongoose.Schema.Types.ObjectId
 
 const questSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    reqLevel:{
+    reqLevel: {
         type: Number,
         default: 1
     },
-    xp:Number,
-    description:{
+    xp: Number,
+    imgRef:String,
+    description: {
         type: String,
-        required:true
+        required: true
     },
-    difficulty:{
+    difficulty: {
         type: String,
-        enum:['Beginner', 'Easy', 'Moderate', 'Difficult', 'Epic']
-    }
+        enum: ['Beginner', 'Easy', 'Moderate', 'Difficult', 'Epic']
+    },
+    objectives: [{
+        type: objectId,
+        ref: 'Objective'
+    }]
 
 })
 

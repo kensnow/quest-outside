@@ -84,8 +84,11 @@ class ProfileProvider extends Component {
     }
 
     uploadImage = (userId, imgDat) => {
-        return userAxios.post(`/${userId}/profileImg`, imgDat)
-            .then(res => this.updateProfileImg(res.data.filename))
+        console.log(userId, imgDat)
+        return userAxios.post(`/api/profile/${userId}/profileImg`, imgDat)
+            .then(res => {
+                console.log(res)
+                this.updateProfileImg(res.data.filename)})
             .catch(err => {
                 this.setState({
                     errMsg:err.response.data.message
@@ -94,34 +97,40 @@ class ProfileProvider extends Component {
             })
     }
 
-    setImg = (e, userId) => {
-        if(e.target.files[0]){
-            let data = new FormData()
-            let files = e.target.files
-            let fileName = files[0].name
-            data.append('file', files[0])
-            data.append('name', fileName)
-            this.uploadImage(userId, data)
-        }
-    }
+    // setImg = (e, userId) => {
+    //     console.log(e, userId)
+    //     if(e.target.files[0]){
+            
+    //         let data = new FormData()
+    //         let file = e.target.files[0]
+    //         let fileName = file.name
+    //         console.log(file, fileName)
+    //         data.append('file', file)
+    //         data.append('name', fileName)
+    //         console.log(data.entries())
+    //         this.uploadImage(userId, data)
+    //     }
+    // }
 
-    updateProfileImg = (filename) => {
-        this.setState(ps => ({
-            user: {
-                ...ps.user,
-                profileImg: filename
-            }
-        }),
-            () => localStorage.setItem('user',JSON.stringify(this.state.user))
-        )
-    }
+    // updateProfileImg = (filename) => {
+    //     console.log(filename)
+    //     this.setState(ps => ({
+    //         user: {
+    //             ...ps.user,
+    //             profileImg: filename
+    //         }
+    //     }),
+    //         () => localStorage.setItem('user',JSON.stringify(this.state.user))
+    //     )
+    // }
 
     render() {
         const value = {
             logIn: this.logIn,
             logOut: this.logOut,
             signUp: this.signUp,
-            setImg: this.setImage,
+            // setImg: this.setImg,
+            // uploadImage: this.uploadImage,
             ...this.state
         }
         return (

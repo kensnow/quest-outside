@@ -12,6 +12,7 @@ function EditProfile(props) {
         username: props ? props.username : 'loading',
         password: ''
     }
+    console.log(props)
 
     return (
         <>
@@ -22,10 +23,10 @@ function EditProfile(props) {
             {
                 ({handleChange, handleSubmit}) => {
                     return (
-                        <form action={`/${props.user._id}/images`} enctype='multipart/form-data' method='POST'onSubmit={handleSubmit}>
-                            <input type="file" name='profile-pic' onChange={(e) => props.setImg(e)}/>
+                        <div>
+                            <input type="file" name='profile-pic' id="profile-pic" onChange={(e) => props.setImg(e, props.user._id)}/>
                             <input type="submit" placeholder='Select a picture'/>
-                        </form>
+                        </div>
                     )
                 }
 
