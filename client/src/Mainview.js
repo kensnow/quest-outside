@@ -4,8 +4,10 @@ import LogIn from './LogIn'
 import SignUp from './SignUp'
 import Home from './Home'
 import ProtectedRoute from './providers/ProtectedRoute';
+import ProtectedQuestMakerRoute from './providers/ProtectedQuestMakerRoute'
 import Dashboard from './Dashboard'
 import EditProfile from './EditProfile'
+import QuestMaker from './QuestMaker'
 
 function Mainview() {
     return (
@@ -16,6 +18,8 @@ function Mainview() {
                 <Route path='/signup' component={SignUp} />
                 <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
                 <ProtectedRoute  path='/dashboard/edit-profile' component={EditProfile}/>
+                <ProtectedQuestMakerRoute path='/quest-maker' component={QuestMaker}/>
+
             </Switch>
         </main>
     )

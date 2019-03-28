@@ -24,7 +24,9 @@ authRouter.post('/signup', (req, res, next) => {
 
 authRouter.post('/login', (req, res, next) => {
     Profile.findOne({ email: req.body.email.toLowerCase() }, (err, user) => {
-        if (err) { return res.status(500).send(err) }
+        if (err) { 
+            res.status(500)
+            return next(err) }
         if (!user) {
             res.status(403);
             return next(Error('Email not found'))

@@ -10,6 +10,7 @@ app.use(morgan('dev'))
 //add routes here
 
 app.use('/api/profile', require('./routes/profile'))
+app.use('/api/quests', require('./routes/quest'))
 app.use('/auth', require('./routes/auth'))
 
 app.use((err, req, res, next) => {

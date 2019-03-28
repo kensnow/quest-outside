@@ -5,28 +5,28 @@ const userAxios = axios.create()
 
 export const {Provider, Consumer} = createContext()
 
-userAxios.interceptors.request.use((config) => {
+userAxios.interceptors.reobjective.use((config) => {
     const token = localStorage.getItem('token')
     config.headers.Authorization = `Bearer ${token}`
     return config
 })
 
 
-export default class QuestProvider extends Component {
+export default class objectiveProvider extends Component {
     constructor(){
         super();
         this.state = {
-            quests:[],
+            objectives:[],
             errMsg:''
         }
     }
 
-    getQuests = () => {
-        return userAxios.get('/api/quests')
+    getObjectives = () => {
+        return userAxios.get('/api/objectives')
             .then(res => {
-                const {quests} = res.data
+                const {objectives} = res.data
                 this.setState({
-                    quests
+                    objectives
                 })
             })
             .catch(err => {
@@ -37,12 +37,12 @@ export default class QuestProvider extends Component {
             })
     }
 
-    addQuest = (questDat) => {
-        return userAxios.post('/api/quests', {...questDat})
+    addObjective = (objectiveDat) => {
+        return userAxios.post('/api/objectives', {...objectiveDat})
             .then(res => {
-                const {quest} = res.data
+                const {objective} = res.data
                 this.setState( ps => {
-                    quests: [...ps.quests, quest]
+                    objectives: [...ps.objectives, objective]
                 })
             })
             .catch(err => {
@@ -52,25 +52,25 @@ export default class QuestProvider extends Component {
             })
     }
 
-    editQuest = (questDat, id) => {
-        return userAxios.put('/api/quests', {...questDat})
+    editObjective = (objectiveDat, id) => {
+        return userAxios.put('/api/objectives', {...objectiveDat})
             .then(res => {
-                const updatedQuest = res.data
-                const foundQuestIndex = this.state.quests.find(quest => quest._id === id).indexOf()
-                const updatedQuestArr = this.state.quests.splice(foundQuestIndex, 1, updatedQuest)
+                const updatedObjective = res.data
+                const foundObjectiveIndex = this.state.objectives.find(objective => objective._id === id).indexOf()
+                const updatedObjectiveArr = this.state.objectives.splice(foundObjectiveIndex, 1, updatedObjective)
                 this.setState({
-                    quests: updatedQuestArr
+                    objectives: updatedObjectiveArr
                 })
             })
     }
 
-    deleteQuest = (id) => {
-        return userAxios.delete('/api/quests', id)
+    deleteObjective = (id) => {
+        return userAxios.delete('/api/objectives', id)
             .then(res => {
-                const foundDeletedQuest = this.state.quests.find(quest => quest._id === id).indexOf()
-                const updatedQuestArr = this.state.quests.splice(foundDeletedQuest, 1)
+                const foundDeletedObjectiveIndex = this.state.objectives.find(objective => objective._id === id).indexOf()
+                const updatedObjectiveArr = this.state.objectives.splice(foundDeletedObjectiveIndex, 1)
                 this.setState({
-                    quests: updatedQuestArr
+                    objectives: updatedObjectiveArr
                 })
             })
     }
@@ -87,7 +87,7 @@ export default class QuestProvider extends Component {
     }
 }
 
-export const withQuestProvider = C => props => (
+export const withobjectiveProvider = C => props => (
     <Consumer>
         {containerProps => <C {...props}{...containerProps} />}
     </Consumer>

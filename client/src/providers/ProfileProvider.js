@@ -83,19 +83,19 @@ class ProfileProvider extends Component {
         
     }
 
-    uploadImage = (userId, imgDat) => {
-        console.log(userId, imgDat)
-        return userAxios.post(`/api/profile/${userId}/profileImg`, imgDat)
-            .then(res => {
-                console.log(res)
-                this.updateProfileImg(res.data.filename)})
-            .catch(err => {
-                this.setState({
-                    errMsg:err.response.data.message
-                })
-                return err
-            })
-    }
+    // uploadImage = (userId, imgDat) => {
+    //     console.log(userId, imgDat)
+    //     return userAxios.post(`/api/profile/${userId}/profileImg`, imgDat)
+    //         .then(res => {
+    //             console.log(res)
+    //             this.updateProfileImg(res.data.filename)})
+    //         .catch(err => {
+    //             this.setState({
+    //                 errMsg:err.response.data.message
+    //             })
+    //             return err
+    //         })
+    // }
 
     // setImg = (e, userId) => {
     //     console.log(e, userId)
